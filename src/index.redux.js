@@ -3,7 +3,8 @@ const REMOVE_GUN = '减机关枪';
 
 // render
 // 根据action执行下一步的动作
-export function counter(state = 0, action) {
+// Store 收到 Action 以后，必须给出一个新的 State，这样 View 才会发生变化。这种 State 的计算过程就叫做 Reducer。
+export function counter(state = 10, action) {
     // action 是一个对象，其中的type属性是必须的
     switch (action.type) {
         case ADD_GUN:
@@ -11,7 +12,7 @@ export function counter(state = 0, action) {
         case REMOVE_GUN:
             return state - 1;
         default:
-            return 10;
+            return state;
     }
 }
 

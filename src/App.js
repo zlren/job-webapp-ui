@@ -5,13 +5,13 @@ import {addGun, removeGun, addGunAsync} from './index.redux';
 
 // 本组件需要的数据
 const mapStateToProps = (state) => {
-    return {num: state}
+    return {num: state.counter} // 这里必须是state.counter，因为state里面有很多的reducer，每个reducer处理一个业务，拿数据的时候要拿本业务的reducer
 };
 
 // 本组件需要的方法，自动dispatch
 const actionCreators = {addGun, removeGun, addGunAsync};
 
-// 属性和方法分别传给App，App只用来展示
+// 本组件需要的数据和方法
 @connect(mapStateToProps, actionCreators)
 class App extends React.Component {
     render() {
