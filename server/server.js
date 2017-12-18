@@ -8,11 +8,11 @@ const db = mongoose.connection.openUri(mongodb_url);
 
 db.on('error', console.error.bind(console, '连接错误:'));
 db.once('open', function () {
-    console.log('连接成功');
+    console.log('connect mongodb success !');
 });
 
 const User = mongoose.model('user', new mongoose.Schema({
-    name: {type: String, require: true},
+    user: {type: String, require: true},
     age: {type: Number, require: true},
 }));
 
@@ -37,7 +37,7 @@ app.get('/', function (req, res) {
 
 app.get('/data', function (req, res) {
     // 查询数据，传入一个空的条件表示查询所有的
-    User.find({name: 'zlren'}, function (err, doc) {
+    User.findOne({user: 'zlren'}, function (err, doc) {
         res.json(doc);
     });
 });

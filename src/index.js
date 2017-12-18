@@ -5,6 +5,7 @@ import thunk from 'redux-thunk';
 import {Provider} from 'react-redux';
 import {BrowserRouter, Route, Redirect, Switch} from 'react-router-dom';
 
+import config from './config'; // 加载它使之生效
 import reducers from './reducers';
 import Auth from './Auth';
 import DashBoard from './DashBoard';
