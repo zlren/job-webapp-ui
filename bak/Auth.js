@@ -7,6 +7,8 @@ import {Redirect} from 'react-router-dom';
 @connect(state => state.auth, {getUserData, login})
 class Auth extends React.Component {
 
+    // 组件内部调用的时候都是this.props.key的形式调用
+
     componentDidMount() {
         this.props.getUserData();
     }
