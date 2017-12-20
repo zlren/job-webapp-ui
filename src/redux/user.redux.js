@@ -5,13 +5,13 @@ import {getRedirectPath} from "../util";
 const REGISTER_SUCCESS = 'REGISTER_SUCCESS';
 const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
 const ERROR_MSG = 'ERROR_MSG';
+const LOAD_DATA = 'LOAD_DATA';
 
 const initState = {
     redirectTo: '',
     msg: '',
     isAuth: false,
     user: '',
-    pwd: '',
     type: ''
 };
 
@@ -34,6 +34,8 @@ export function user(state = initState, action) {
                 isAuth: true,
                 msg: ''
             };
+        case LOAD_DATA:
+            return {...state, ...action.payload};
         case ERROR_MSG:
             // payload里面包含了从后端传来的具体错误信息，key也是msg
             return {...state, msg: action.msg, isAuth: false};
@@ -79,12 +81,16 @@ export function login({user, pwd}) {
         axios.post('/user/login', {user, pwd}).then(res => {
             if (res.status === 200 && res.data.code === 0) {
                 // 登录成功，返回用户基本信息（不包含敏感信息）
-                dispatch({type: LOGIN_SUCCESS, payload: res.data});
+                dispatch({type: LOGIN_SUCCESS, payload: res.data.data});
             } else {
                 // 登录失败，原因后端会传过来
                 dispatch({type: ERROR_MSG, msg: res.data.msg});
             }
         })
     }
+}
 
+export function loadData(userinfo) {
+    console.log('loadData:', userinfo);
+    return {type: LOAD_DATA, payload: userinfo};
 }
