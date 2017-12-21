@@ -3,7 +3,7 @@ import ReactDom from 'react-dom';
 import {createStore, applyMiddleware, compose} from 'redux';
 import thunk from 'redux-thunk';
 import {Provider} from 'react-redux';
-import {BrowserRouter, Route} from 'react-router-dom';
+import {BrowserRouter, Route, Switch} from 'react-router-dom';
 
 import config from './config'; // 加载它使之生效
 import reducers from './reducers';
@@ -11,6 +11,10 @@ import reducers from './reducers';
 // 登录和注册页面
 import Login from './container/login/login';
 import Register from './container/register/register';
+
+// 完善信息页面
+import BossInfo from './container/boss/boss-info';
+import GeniusInfo from './container/genius/genius-info';
 
 import AuthRoute from './component/authroute/AuthRoute';
 
@@ -22,7 +26,11 @@ const store = createStore(reducers, compose(
 ));
 
 function Boss() {
-    return (<h3>BOSS页面</h3>);
+    return (
+        <div>
+            <h3>boss主页</h3>
+        </div>
+    );
 }
 
 ReactDom.render(
@@ -30,9 +38,16 @@ ReactDom.render(
         <BrowserRouter>
             <div>
                 <AuthRoute/>
-                <Route path={'/boss'} component={Boss}/>
-                <Route path={'/login'} component={Login}/>
-                <Route path={'/register'} component={Register}/>
+                <Switch>
+
+                    <Route path={'/bossinfo'} component={BossInfo}/>
+                    <Route path={'/geniusinfo'} component={GeniusInfo}/>
+
+                    <Route path={'/boss'} component={Boss}/>
+
+                    <Route path={'/login'} component={Login}/>
+                    <Route path={'/register'} component={Register}/>
+                </Switch>
             </div>
         </BrowserRouter>
     </Provider>),

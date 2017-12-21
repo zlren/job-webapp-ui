@@ -26,7 +26,7 @@ class AuthRoute extends React.Component {
             if (res.status === 200) {
                 if (res.data.code === 0) {
                     // 有登录信息
-                    console.log('有登陆信息')
+                    console.log('有登陆信息');
                     this.props.loadData(res.data.data);
                 } else {
                     // 路由组件才会有history属性
@@ -42,7 +42,6 @@ class AuthRoute extends React.Component {
 
         // 用户的角色
         // 用户是否完善信息（头像、个人简介）
-
 
     }
 
