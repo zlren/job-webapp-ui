@@ -5,7 +5,13 @@ import {connect} from 'react-redux';
 
 import {loadData} from '../../redux/user.redux';
 
-// 检测用户信息进行跳转
+
+/**
+ *  检测用户信息进行跳转
+ *  背后是向服务器发送请求登录状态、用户信息的请求，如果已经登录的话是可以携带cookie的
+ *  注意到这里@connect的时候，传递给AuthRoute组件的只有loadData（这是数据），并没有传给它方法
+ *  可能是因为这里比较简单，方法直接在组件内部自己给实现了
+ */
 @withRouter
 @connect(null, {loadData})
 class AuthRoute extends React.Component {
@@ -26,7 +32,7 @@ class AuthRoute extends React.Component {
             if (res.status === 200) {
                 if (res.data.code === 0) {
                     // 有登录信息
-                    console.log('有登陆信息');
+                    console.log('有登陆信息', res);
                     this.props.loadData(res.data.data);
                 } else {
                     // 路由组件才会有history属性
