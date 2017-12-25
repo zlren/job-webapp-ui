@@ -20,7 +20,7 @@ function User() {
     );
 }
 
-@connect(state => state, null)
+@connect(state => state)
 class DashBoard extends React.Component {
 
     render() {
@@ -63,9 +63,7 @@ class DashBoard extends React.Component {
             <div>
                 <NavBar className={'fixd-header'} mode={'dark'}>
                     {/*find类似于过滤函数，里面需要有一个返回值为boolean类型的函数，过滤所有的元素找到一个使得返回值为true的元素*/}
-                    {navList.find(v => {
-                        return pathname === v.path
-                    }).text}
+                    {navList.find(v => pathname === v.path).title}
                 </NavBar>
 
                 <div style={{marginTop: 45}}>
@@ -75,7 +73,6 @@ class DashBoard extends React.Component {
                         ))}
                     </Switch>
                 </div>
-
 
                 {/*<Route path={'/boss'} component={Boss}/>*/}
                 {/*<Route path={'/genius'} component={Genius}/>*/}

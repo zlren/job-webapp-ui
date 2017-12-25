@@ -6,12 +6,13 @@ const AUTH_SUCCESS = 'AUTH_SUCCESS';
 const ERROR_MSG = 'ERROR_MSG';
 const LOAD_DATA = 'LOAD_DATA';
 
-
 const initState = {
     redirectTo: '',
     msg: '',
     user: '',
-    type: ''
+    type: '',
+    token: '',
+    duration: ''
 };
 
 // reducer
@@ -34,7 +35,7 @@ export function user(state = initState, action) {
     }
 }
 
-// action creator
+// 注册
 export function register({user, pwd, repeatPwd, type}) {
 
     if (!user || !pwd || !type) {
@@ -57,9 +58,8 @@ export function register({user, pwd, repeatPwd, type}) {
     };
 }
 
+// 登录
 export function login({user, pwd}) {
-
-    console.log('登录请求', user, pwd);
 
     if (!user || !pwd) {
         return {type: ERROR_MSG, msg: '参数不完整'};
@@ -68,6 +68,10 @@ export function login({user, pwd}) {
     return dispatch => {
         axios.post('/user/login', {user, pwd}).then(res => {
             if (res.status === 200 && res.data.code === 0) {
+
+                // 保存状态信息
+                sessionStorage.setItem('TOKEN', res.data.data.token);
+
                 // 登录成功，返回用户基本信息（不包含敏感信息）
                 dispatch({type: AUTH_SUCCESS, payload: res.data.data});
             } else {
@@ -78,6 +82,7 @@ export function login({user, pwd}) {
     }
 }
 
+// 加载个人信息
 export function loadData(userinfo) {
     console.log('loadData:', userinfo);
     return {type: LOAD_DATA, payload: userinfo};

@@ -35,7 +35,7 @@ class Boss extends React.Component {
                                     extra={<span>{v.title}</span>}
                                 />
                                 <Card.Body>{v.desc.split('\n').map(vv => (
-                                    <div>{vv}</div>
+                                    <div key={Math.random()}>{vv}</div>
                                 ))}
                                 </Card.Body>
                             </Card>

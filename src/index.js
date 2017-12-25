@@ -38,7 +38,6 @@ ReactDom.render(
 
                 {/*Switch组件只要命中了一个，其他的就不管了*/}
                 <Switch>
-
                     <Route path={'/bossinfo'} component={BossInfo}/>
                     <Route path={'/geniusinfo'} component={GeniusInfo}/>
 
