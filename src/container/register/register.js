@@ -7,32 +7,23 @@ import Logo from '../../component/logo/logo'
 import {register} from "../../redux/user.redux";
 import '../../index.css'
 
+import appForm from '../../component/app-form/app-form'
+
 
 const GENIUS = 'genius';
 const BOSS = 'boss';
 
 // 注册页面
 @connect(state => state.user, {register})
+@appForm
 class Register extends React.Component {
 
-    constructor(props) {
-        super(props);
-        this.state = {
-            user: '',
-            pwd: '',
-            repeatPwd: '',
-            type: GENIUS // 默认是求职者
-        };
-    }
-
-    handleChange(key, value) {
-        this.setState({
-            [key]: value
-        });
+    componentDidMount() {
+        this.props.handleChange('type', GENIUS);
     }
 
     handleRegister() {
-        this.props.register(this.state);
+        this.props.register(this.props.state);
     }
 
     render() {
@@ -51,20 +42,20 @@ class Register extends React.Component {
 
                 <WingBlank>
                     <List>
-                        <InputItem onChange={(v) => this.handleChange('user', v)}>账号</InputItem>
-                        <InputItem type={'password'} onChange={(v) => this.handleChange('pwd', v)}>密码</InputItem>
+                        <InputItem onChange={(v) => this.props.handleChange('user', v)}>账号</InputItem>
+                        <InputItem type={'password'} onChange={(v) => this.props.handleChange('pwd', v)}>密码</InputItem>
                         <InputItem type={'password'}
-                                   onChange={(v) => this.handleChange('repeatPwd', v)}>确认密码</InputItem>
+                                   onChange={(v) => this.props.handleChange('repeatPwd', v)}>确认密码</InputItem>
                     </List>
                     <WhiteSpace/>
                     <List>
-                        <RadioItem checked={this.state.type === GENIUS}
-                                   onChange={() => this.handleChange('type', GENIUS)}>
+                        <RadioItem checked={this.props.state.type === GENIUS}
+                                   onChange={() => this.props.handleChange('type', GENIUS)}>
                             牛人
                         </RadioItem>
                         {/*只有满足checked的条件的时候才会被选中*/}
-                        <RadioItem checked={this.state.type === BOSS}
-                                   onChange={() => this.handleChange('type', BOSS)}>
+                        <RadioItem checked={this.props.state.type === BOSS}
+                                   onChange={() => this.props.handleChange('type', BOSS)}>
                             老板
                         </RadioItem>
                     </List>

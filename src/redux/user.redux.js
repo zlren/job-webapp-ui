@@ -5,6 +5,7 @@ import {getRedirectPath} from "../util";
 const AUTH_SUCCESS = 'AUTH_SUCCESS';
 const ERROR_MSG = 'ERROR_MSG';
 const LOAD_DATA = 'LOAD_DATA';
+const LOGOUT = 'LOGOUT';
 
 const initState = {
     redirectTo: '',
@@ -30,6 +31,8 @@ export function user(state = initState, action) {
         case ERROR_MSG:
             // payload里面包含了从后端传来的具体错误信息，key也是msg
             return {...state, msg: action.msg, isAuth: false};
+        case LOGOUT:
+            return {...initState, redirectTo: '/login'};
         default:
             return state;
     }
@@ -103,9 +106,9 @@ export function update(info) {
     }
 }
 
-
-
-
-
+// 退出，清除redux数据
+export function logoutSubmit() {
+    return {type: LOGOUT};
+}
 
 

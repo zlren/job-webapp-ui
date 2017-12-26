@@ -22,6 +22,8 @@ import DashBoard from './component/dashboard/dashboard';
 
 import './index.css'
 
+import User from './component/user/user';
+
 // 根据一个函数去创建store，一个应用应该只有一个store
 // 一个reducer也许可以，但是系统多了以后会过于复杂，后面应该要reducer的拆分，按业务
 const store = createStore(reducers, compose(
@@ -34,10 +36,14 @@ ReactDom.render(
     (<Provider store={store}>
         <BrowserRouter>
             <div>
+
                 <AuthRoute/>
 
                 {/*Switch组件只要命中了一个，其他的就不管了*/}
                 <Switch>
+
+                    {/*<Route path={'/haha'} component={User}/>*/}
+
                     <Route path={'/bossinfo'} component={BossInfo}/>
                     <Route path={'/geniusinfo'} component={GeniusInfo}/>
 
